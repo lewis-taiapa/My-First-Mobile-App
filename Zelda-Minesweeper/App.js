@@ -1,16 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, Picker } from 'react-native';
 
-const minesweeper = require('./lib/minesweeper')
+const test = require('./lib/test')
+//const minesweeper = require('./lib/minesweeper')
 const lib = require('./lib/lib')
 const tests = require('./lib/tests')
 
 export default function App() {
 
   const [difficulty, setDifficulty] = useState('hard')
+  const [testString, setTestString] = useState('Default')
 
-  minesweeper.test(difficulty)
+  useEffect(() => {
+    //minesweeper.startGame()
+  },[])
+
+  useEffect(() => {
+
+    setTestString(test.test(difficulty))
+
+  },[difficulty])
+
+
   
   // (setDifficulty(this.value); playAudio('restart'); removeWinPic();)}
 
@@ -21,7 +33,7 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
 
-    <View> 
+    <View style={styles.container}> 
       {/* id="menuheader"> */}
       <Picker 
         // id="diffSelect" 
@@ -33,6 +45,7 @@ export default function App() {
           <Picker.Item label="Hard" value="hard" />
           <Picker.Item label="Extreme" value="Extreme" />
       </Picker>
+      <Text>{testString}</Text>
     </View>
     // {/* <View id="message"></View>
     // <Button id="btn" onclick="setDifficulty(diffSelect.value); playAudio('restart'); removeWinPic();">Reset</Button>
@@ -45,8 +58,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    //alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
   },})
   
 //   body: {
